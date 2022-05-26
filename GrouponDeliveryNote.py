@@ -58,18 +58,24 @@ def set_column_width(table, columns, width_cm):
         cell.width = Cm(width_cm)
 
 # 删除word表格列
+
+
 def delete_column_in_table(table, columns):
     col = table.columns[columns]
     for cell in col.cells:
         cell._element.getparent().remove(cell._element)
 
 # 设置word表格单元格文字内容和格式
+
+
 def set_cell_text(row, index_row, text, alignment=WD_ALIGN_PARAGRAPH.CENTER):
     row[index_row].text = str(text)
     row[index_row].paragraphs[0].alignment = alignment
     row[index_row].vertical_alignment = WD_ALIGN_VERTICAL.CENTER
 
 # 增加一个word表格列出商品派送名细
+
+
 def add_building_order_table(building_order_data, this_document, groupon_owner, product_name, excel_column_name, building_number, max_building_number, number_line_in_page, max_row_number_per_page, if_hide_phone_number=True):
     # 本楼栋的产品(按指定顺序排列)，产品种类数
 
@@ -126,27 +132,62 @@ def add_building_order_table(building_order_data, this_document, groupon_owner, 
                 row_cells = table.add_row().cells
 
                 set_cell_text(
-                    row_cells, 0, row[excel_column_name["wechat_name"]].encode('utf-8')[0:22].decode('utf-8', errors='ignore'))
+                    row_cells, 0, row[excel_column_name["wechat_name"]].encode('utf-8')[0:18].decode('utf-8', errors='ignore'))
                 set_cell_text(
                     row_cells, 1, row[excel_column_name["custom_name"]].encode('utf-8')[0:10].decode('utf-8', errors='ignore'))
                 set_cell_text(
                     row_cells, 2, row[excel_column_name["phone_number"]])
-                set_cell_text(
-                    row_cells, 3, row[excel_column_name["building_number"]])
-                set_cell_text(
-                    row_cells, 4, row[excel_column_name["room_number"]])
-                set_cell_text(row_cells, 5, row[excel_column_name["quantity"]])
+                if(  row[excel_column_name["building_number"]]==555555):
+                    set_cell_text(
+                        row_cells, 3, "未能识别的楼号！\n")
+                    print("未能识别"+ row[excel_column_name["custom_name"]]+str(row[excel_column_name["phone_number"]])+"订单的楼号，请检查后再试！")
+                    exit()
+                elif(  row[excel_column_name["building_number"]]==666666):
+                    set_cell_text(
+                        row_cells, 3, "商务楼")
+                else:
+                    set_cell_text(
+                        row_cells, 3, row[excel_column_name["building_number"]])
+                if(  row[excel_column_name["room_number"]]==555555):
+                    set_cell_text(
+                        row_cells, 4, "未能识别的房号！")
+                    print("未能识别"+ row[excel_column_name["custom_name"]]+str(row[excel_column_name["phone_number"]])+"订单的房号，请检查后再试！")
+                    exit()
+
+                elif(  row[excel_column_name["room_number"]]==666666):
+                    set_cell_text(
+                        row_cells, 4, "别墅")
+                else:
+                    set_cell_text(
+                        row_cells, 4, row[excel_column_name["room_number"]])
+
+                if excel_column_name["quantity"] in product_building_order_data.columns:
+                    set_cell_text(
+                        row_cells, 5, row[excel_column_name["quantity"]])
+                    number_of_order = number_of_order+int(row[excel_column_name["quantity"] ])
+                else:
+                    set_cell_text(
+                        row_cells, 5, "-")
                 if("remarks" in excel_column_name.keys()):
                     if excel_column_name["remarks"] in product_building_order_data.columns:
                         set_cell_text(
                             row_cells, 6, row[excel_column_name["remarks"]])
-                number_of_order = number_of_order+int(row['数量'])
+                            
 
             # 最后加一行商品合计行
             row_cells = table.add_row().cells
-            set_cell_text(row_cells, 0, " " +
-                          product_name[i][1]+"——合计", WD_ALIGN_PARAGRAPH.LEFT)
-            set_cell_text(row_cells, 5, number_of_order)
+            
+            if excel_column_name["quantity"] in product_building_order_data.columns:
+                set_cell_text(row_cells, 0, " " +
+                            product_name[i][1]+"——合计", WD_ALIGN_PARAGRAPH.LEFT)
+            else:
+                set_cell_text(row_cells, 0, 
+                            product_name[i][1]+"——合计", WD_ALIGN_PARAGRAPH.LEFT)
+
+            if number_of_order==0:
+                set_cell_text(row_cells, 5, "-")
+            else:
+                set_cell_text(row_cells, 5, number_of_order)
 
             # 设置表格列的宽度
             set_column_width(table, 0, 4)
@@ -184,6 +225,8 @@ def add_building_order_table(building_order_data, this_document, groupon_owner, 
     return number_line_in_page
 
 # 输出派送单word文件以供打印
+
+
 def output_deliverynote_file(data, send_file_name, groupon_owner, product_name, excel_column_name, max_row_number_per_page, page_margin_cm, if_hide_phone_number=True):
     # 设置字体和段前段后行距
     this_document = Document()
@@ -220,7 +263,10 @@ def output_deliverynote_file(data, send_file_name, groupon_owner, product_name, 
     # 按顺序输出每个楼栋的派送单
     # 最大的楼栋号，用于后续程序格式判断用。
     max_building_number = data[excel_column_name["building_number"]].max()
-    for i in range(0, max_building_number+1):
+    building_number_list=sorted(data[excel_column_name["building_number"]].unique())
+    for i in building_number_list:
+    # for i in range(0, max_building_number+1):
+    #     if i not in 
         # 获得当前楼栋的订单信息
         building_order_data = data.loc[data[excel_column_name["building_number"]] == i].copy(
         )
@@ -250,16 +296,21 @@ def output_deliverynote_file(data, send_file_name, groupon_owner, product_name, 
             header = this_document.sections[1+j-number_blank_product].header
             header.is_linked_to_previous = False
             header.paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
-            header.paragraphs[0].text = "派送单——"+product_name[j][1]+"（共" + \
+            if excel_column_name["quantity"] in product_order_data.columns:
+                header.paragraphs[0].text = "派送单——"+product_name[j][1]+"（共" + \
                 str(product_order_data[excel_column_name["quantity"]].sum(
                 ))+"份）"
+            else:
+                header.paragraphs[0].text = "派送单——"+product_name[j][1]
+
 
             number_line_in_page = 0
             # 按顺序输出每个楼栋的派送单
             # 最大的楼栋号，用于后续程序格式判断用。
             max_building_number = data[excel_column_name["building_number"]].max(
             )
-            for i in range(1, max_building_number+1):
+            building_number_list=sorted(product_order_data[excel_column_name["building_number"]].unique())
+            for i in building_number_list:
                 # 获得当前楼栋的订单信息
                 building_order_data = product_order_data.loc[product_order_data[excel_column_name["building_number"]] == i].copy(
                 )
@@ -272,10 +323,18 @@ def output_deliverynote_file(data, send_file_name, groupon_owner, product_name, 
         p = this_document.add_paragraph(
             '本派送单由“小涛”开发的GrouponDeliveryNote程序自动生成，如其他团长有需求，可添加我微信（mtshang1984）免费提供技术支持。')
     else:
-        header.paragraphs[0].text = "派送单（共" + \
-            str(data[excel_column_name["quantity"]].sum())+"份）"
+        if excel_column_name["quantity"] in data.columns:
+            header.paragraphs[0].text = "派送单（共" + \
+                str(data[excel_column_name["quantity"]].sum())+"份）"
+
+        else:
+            header.paragraphs[0].text = "派送单" 
 
     this_document.save(send_file_name)
+
+# todo
+# 允许某些列不存在
+
 
 # 主程序入口
 if __name__ == "__main__":
@@ -317,6 +376,8 @@ if __name__ == "__main__":
             excel_column_name["custom_name"] = "收货人"
         if "phone_number" not in excel_column_name.keys():
             excel_column_name["phone_number"] = "联系电话"
+        if "detail_address" not in excel_column_name.keys():
+            excel_column_name["detail_address"] = "detail_address"
         if "building_number" not in excel_column_name.keys():
             excel_column_name["building_number"] = "楼号（如10）"
         if "room_number" not in excel_column_name.keys():
@@ -331,6 +392,7 @@ if __name__ == "__main__":
             "wechat_name": "下单人",
             "custom_name": "收货人",
             "phone_number": "联系电话",
+            "detail_address": "详细地址",
             "building_number": "楼号（如10）",
             "room_number": "房号（如606）",
             "quantity": "数量",
@@ -373,24 +435,50 @@ if __name__ == "__main__":
         product_name_in_order = data[excel_column_name
                                      ["product_name"]].unique()
         number_product_name = len(product_name_in_order)
-        # product_name=[[" "]*2]*number_product_name
+        
         product_name = [[]]*number_product_name
         for i in range(number_product_name):
-            product_name[i] = [product_name_in_order[i],
-                               str(i+1)+"-"+product_name_in_order[i]]
+            if excel_column_name["quantity"] in data.columns:
+                product_name[i] = [product_name_in_order[i],
+                                str(i+1)+"-"+product_name_in_order[i]]
+            else:
+                product_name[i] = [product_name_in_order[i],product_name_in_order[i]]
+                max_row_number_per_page = 26
+
         product_name = np.array(product_name)
     else:
         product_name = np.array(program_input["product_name"])
 
-    # 对楼号列进行预处理，过滤掉中文及字符，保留数字部分，紫龙路500弄自动删除，商务楼楼号为0
-    if(data[excel_column_name["building_number"]].dtype != np.int32 and data[excel_column_name["building_number"]].dtype != np.int64):
-        data[excel_column_name["building_number"]] = data[excel_column_name["building_number"]].astype(str).str.replace(
-            "500弄", "").str.replace("商务楼", "0").apply(lambda x: (re.findall("\d+", x)[0])).apply(pd.to_numeric)
+    #解析详细地址信息至楼号室号
+    if excel_column_name["room_number"] not in data.columns or excel_column_name["building_number"] not in data.columns:
+        if excel_column_name["detail_address"]  in data.columns:     
+            for index,row in data.iterrows():
+                detail_address=row[excel_column_name["detail_address"]].split("弄")[-1].replace("号","#").replace("-","#").replace("—","#").split("#")
+                
+                if len(detail_address)>2:
+                    data.at[index,excel_column_name["building_number"]]=detail_address[-2]
+                    data.at[index,excel_column_name["room_number"]]=detail_address[-1]
+                elif len(detail_address)==2:
+                    data.at[index,excel_column_name["building_number"]]=detail_address[0]
+                    data.at[index,excel_column_name["room_number"]]=detail_address[1]
+                else:
+                    data.at[index,excel_column_name["room_number"]]="别墅"
 
-    # 对室号列进行预处理，过滤掉中文及字符，保留数字部分，别墅室号统一为101
+        else:
+            print("未找到完整地址信息，请确认后再试！")
+            exit()
+
+
+    # 对室号列进行预处理，过滤掉中文及字符，保留数字部分
     if(data[excel_column_name["room_number"]].dtype != np.int32 and data[excel_column_name["room_number"]].dtype != np.int64):
-        data[excel_column_name["room_number"]] = data[excel_column_name["room_number"]].astype(
-            str).str.replace("别墅", "101").apply(lambda x: (re.findall("\d+", x)[0])).apply(pd.to_numeric)
+        data[excel_column_name["room_number"]] =("555555-"+ data[excel_column_name["room_number"]].astype(
+            str)).str.replace("别墅", "666666-").apply(lambda x: (re.findall("\d+", x)[-1])).apply(pd.to_numeric)
+
+    # 对楼号列进行预处理，过滤掉中文及字符，保留数字部分，紫龙路500弄自动删除
+    if(data[excel_column_name["building_number"]].dtype != np.int32 and data[excel_column_name["building_number"]].dtype != np.int64):
+        data[excel_column_name["building_number"]] = (data[excel_column_name["building_number"]].astype(str)+"-555555").str.replace(
+            "500弄", "jiayishuian").str.replace("商务楼", "666666-").apply(lambda x: (re.findall("\d+", x)[0])).apply(pd.to_numeric)
+
 
     # 输出派送单不带手机号
     output_deliverynote_file(data, deliverynote_file_name, groupon_owner, product_name, excel_column_name,
