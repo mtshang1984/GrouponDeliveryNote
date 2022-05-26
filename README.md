@@ -70,7 +70,7 @@ GrouponDeliveryNote程序主要用于协助团长自动整理快团团订单，�
     * if_hide_phone_number：是否隐藏手机号码
 <br>
 
-* 2、进入命令行下，切换程序所在目录下，输入python GrouponDeliveryNote.py运行，即可生成派送单。
+* 3、进入命令行下，切换程序所在目录下，输入python GrouponDeliveryNote.py运行，即可生成派送单。
 
 
 # 版本更新：
