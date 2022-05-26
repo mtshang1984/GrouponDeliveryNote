@@ -9,7 +9,7 @@ GrouponDeliveryNote程序由小涛开发，主要用于协助团长自动整理�
 * 2、python3.8.6 64位以上运行环境，并安装numpy、pandas、python-docx、xlrd等python库。
 
 # 使用方法：
-* 1、先确认是否安装完成python，如果未安装可以百度搜索“anaconda安装教程”参考安装 <br>
+* 1、先确认是否安装完成python，如果未安装可以百度搜索“[anaconda安装教程](https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&tn=baidu&wd=anaconda%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B&oq=anaconda%25E5%25AE%2589%25E8%25A3%2585%25E6%2595%2599%25E7%25A8%258B&rsv_pq=b6fc5a4a00004c74&rsv_t=1c5eYwmNwWfA31oioXkUGy0JlHMABF17liscw9H9eeNNOJsbl2DgBE9uv4k&rqlang=cn&rsv_enter=0&rsv_dl=tb&rsv_btype=t)”参考安装 <br>
 * 2、下载[本程序](https://github.com/mtshang1984/GrouponDeliveryNote/releases)并复制至某一目录下，打开input.json <br>
 参考下面的说明按需进行设置：<br>
 ```
