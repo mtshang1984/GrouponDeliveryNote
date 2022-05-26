@@ -78,4 +78,4 @@ GrouponDeliveryNote程序由小涛开发，主要用于协助团长自动整理�
 * 2022.05.26日发布本程序开源版V1.0版： <br>
 
 # 协议声明
-使用本程序需遵循Apache License 2.0协议
+使用本程序代码需遵循Apache License 2.0协议
