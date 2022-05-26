@@ -70,7 +70,7 @@ GrouponDeliveryNote程序由小涛开发，主要用于协助团长自动整理�
 <br>
 
 * 3、进入命令行下，切换程序所在目录下，输入python GrouponDeliveryNote.py运行，即可生成派送单。
-    * 派送单样式参见“[20220525浮生若梦水果套餐派送单.docx]( https://github.com/mtshang1984/GrouponDeliveryNote/blob/main/20220525%E6%B5%AE%E7%94%9F%E8%8B%A5%E6%A2%A6%E6%B0%B4%E6%9E%9C%E5%A5%97%E9%A4%90%E6%B4%BE%E9%80%81%E5%8D%95.docx )”。文件分为两部分，第一部分为订单确认单，先按不同楼栋再按产品排。第二部分为派送单，先按品种再按楼栋排序。楼栋的单据之间增加分隔线以方便裁剪。
+    * 派送单样式参见“[20220525浮生若梦水果套餐派送单.docx](https://github.com/mtshang1984/GrouponDeliveryNote/blob/main/20220525%E6%B5%AE%E7%94%9F%E8%8B%A5%E6%A2%A6%E6%B0%B4%E6%9E%9C%E5%A5%97%E9%A4%90%E6%B4%BE%E9%80%81%E5%8D%95.pdf)”。文件分为两部分，第一部分为订单确认单，先按不同楼栋再按产品排。第二部分为派送单，先按品种再按楼栋排序。楼栋的单据之间增加分隔线以方便裁剪。
 
 
 # 版本更新：
