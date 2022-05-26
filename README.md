@@ -10,7 +10,7 @@ GrouponDeliveryNote程序主要用于协助团长自动整理快团团订单，�
 
 # 使用方法：
 * 1、先确认是否安装完成python，如果未安装可以百度搜索“anaconda安装教程”参考安装 <br>
-* 2、下载本程序并复制至某一目录下，打开input.json <br>
+* 2、下载本程序（https://github.com/mtshang1984/GrouponDeliveryNote/releases）并复制至某一目录下，打开input.json <br>
 参考下面的说明按需进行设置：<br>
 ```
 设置案例一：
