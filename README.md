@@ -21,7 +21,7 @@ GrouponDeliveryNote程序由小涛开发，主要用于协助团长自动整理�
 设置案例二
 
 {
-    "groupon_owner":"浮生",
+    "groupon_owner":"浮生若梦",
     "product_name": [
         [
             "本地叶菜4品种6斤装(6斤)",
@@ -36,8 +36,8 @@ GrouponDeliveryNote程序由小涛开发，主要用于协助团长自动整理�
             "3-水果黄瓜（旱黄瓜）(5斤装)"
         ]
     ],
-    "order_file_name": "20220524-浮生蔬菜水果套餐派送单.xlsx",
-    "deliverynote_file_name": "20220524-浮生蔬菜水果套餐订单派送单.docx",
+    "order_file_name": "20220525-浮生若梦蔬菜水果套餐派送单.xlsx",
+    "deliverynote_file_name": "20220525-浮生若梦蔬菜水果套餐订单派送单.docx",
     "excel_column_name": {
         "product_name": "商品",
         "wechat_name": "下单人",
