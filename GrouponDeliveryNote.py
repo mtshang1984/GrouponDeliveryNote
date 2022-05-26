@@ -95,7 +95,7 @@ def add_building_order_table(building_order_data, this_document, groupon_owner, 
     for i in range(product_name.shape[0]):
         # 按商品名提取数据
         product_building_order_data = building_order_data.loc[building_order_data[excel_column_name["product_name"]] == product_name[i][0]].sort_values(
-            by=[program_input["excel_column_name"]["room_number"]])
+            by=[excel_column_name["room_number"]])
 
         # 如果该商品订单数量不为0，则增加该商品在本楼栋的派送单
         if(product_building_order_data.shape[0] > 0):
@@ -378,11 +378,11 @@ if __name__ == "__main__":
     if "product_name" in program_input:
         product_name = np.array(program_input["product_name"])
     else:
-        product_name = []
+        product_name = np.array([])
 
     # 如果未提供商品列表名称映射表，则从订单数据重建商品名称列表
     if(product_name.shape[0] == 0):
-        product_name_in_order = data[program_input["excel_column_name"]
+        product_name_in_order = data[excel_column_name
                                      ["product_name"]].unique()
         number_product_name = len(product_name_in_order)
         # product_name=[[" "]*2]*number_product_name
@@ -413,6 +413,6 @@ if __name__ == "__main__":
         + "（带手机号）" \
         + Path(deliverynote_file_name).suffix
 
-    if program_input["if_hide_phone_number"]:
+    if if_hide_phone_number:
         output_deliverynote_file(data, deliverynote_file_name_with_phone_number, groupon_owner, product_name, excel_column_name,
                                  max_row_number_per_page, page_margin_cm, False)
