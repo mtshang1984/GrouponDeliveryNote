@@ -19,7 +19,6 @@ GrouponDeliveryNote程序由小涛开发，主要用于协助团长自动整理�
 }
 
 设置案例二
-
 {
     "groupon_owner":"浮生若梦",
     "product_name": [
