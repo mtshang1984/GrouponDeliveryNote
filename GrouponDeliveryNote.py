@@ -58,24 +58,18 @@ def set_column_width(table, columns, width_cm):
         cell.width = Cm(width_cm)
 
 # 删除word表格列
-
-
 def delete_column_in_table(table, columns):
     col = table.columns[columns]
     for cell in col.cells:
         cell._element.getparent().remove(cell._element)
 
 # 设置word表格单元格文字内容和格式
-
-
 def set_cell_text(row, index_row, text, alignment=WD_ALIGN_PARAGRAPH.CENTER):
     row[index_row].text = str(text)
     row[index_row].paragraphs[0].alignment = alignment
     row[index_row].vertical_alignment = WD_ALIGN_VERTICAL.CENTER
 
 # 增加一个word表格列出商品派送名细
-
-
 def add_building_order_table(building_order_data, this_document, groupon_owner, product_name, excel_column_name, building_number, max_building_number, number_line_in_page, max_row_number_per_page, if_hide_phone_number=True):
     # 本楼栋的产品(按指定顺序排列)，产品种类数
 
@@ -190,8 +184,6 @@ def add_building_order_table(building_order_data, this_document, groupon_owner, 
     return number_line_in_page
 
 # 输出派送单word文件以供打印
-
-
 def output_deliverynote_file(data, send_file_name, groupon_owner, product_name, excel_column_name, max_row_number_per_page, page_margin_cm, if_hide_phone_number=True):
     # 设置字体和段前段后行距
     this_document = Document()
@@ -284,10 +276,6 @@ def output_deliverynote_file(data, send_file_name, groupon_owner, product_name, 
             str(data[excel_column_name["quantity"]].sum())+"份）"
 
     this_document.save(send_file_name)
-
-# todo
-# 允许某些列不存在
-
 
 # 主程序入口
 if __name__ == "__main__":
