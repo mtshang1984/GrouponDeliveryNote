@@ -534,20 +534,7 @@ if __name__ == "__main__":
                 building_number,room_number=(get_building_number_room_number_from_detial_adrees(row[excel_column_name["detail_address"]],if_upstream_park))
                 data.at[index,excel_column_name["building_number"]]=int(building_number)
                 data.at[index,excel_column_name["room_number"]]=int(room_number)
-
-            
-            # if error_data.shape[0]>0:
-            #     print(f'{error_data[excel_column_name["custom_name"]].tolist()}房号填写不正确，请检查后再试！')
-            #     if_exist_error =True
-
-            # #检查房号是否正确
-            # error_data=data[((data[excel_column_name["room_number"]]<101) | ((data[excel_column_name["room_number"]]>1703) &(data[excel_column_name["room_number"]]!=666666)))&((data[excel_column_name["building_number"]]<6)&(data[excel_column_name["building_number"]]>36))]
-            # if error_data.shape[0]>0:
-            #     print(f'{error_data[excel_column_name["custom_name"]].tolist()}房号填写不正确，请检查后再试！')
-            #     if_exist_error =True
                 
-            # if if_exist_error:
-            #     exit()
     print(f"共花费{(time.time()-start_time):0.1f}s完成订单预处理。")
 
 
