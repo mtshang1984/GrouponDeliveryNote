@@ -1,10 +1,11 @@
 import os
 from pathlib import Path
 import re
-import pandas as pd
-import numpy as np
+
+import pandas as pd #需要使用pandas库
+import numpy as np  #需要使用numpy库
 import json
-from docx import Document
+from docx import Document  #需要使用python-docx库
 from docx.shared import Cm
 from docx.shared import Pt
 from docx.enum.section import WD_SECTION
@@ -58,24 +59,18 @@ def set_column_width(table, columns, width_cm):
         cell.width = Cm(width_cm)
 
 # 删除word表格列
-
-
 def delete_column_in_table(table, columns):
     col = table.columns[columns]
     for cell in col.cells:
         cell._element.getparent().remove(cell._element)
 
 # 设置word表格单元格文字内容和格式
-
-
 def set_cell_text(row, index_row, text, alignment=WD_ALIGN_PARAGRAPH.CENTER):
     row[index_row].text = str(text)
     row[index_row].paragraphs[0].alignment = alignment
     row[index_row].vertical_alignment = WD_ALIGN_VERTICAL.CENTER
 
 # 增加一个word表格列出商品派送名细
-
-
 def add_building_order_table(building_order_data, this_document, groupon_owner, product_name, excel_column_name, building_number, max_building_number, number_line_in_page, max_row_number_per_page, if_hide_phone_number=True):
     # 本楼栋的产品(按指定顺序排列)，产品种类数
 
@@ -137,6 +132,8 @@ def add_building_order_table(building_order_data, this_document, groupon_owner, 
                     row_cells, 1, row[excel_column_name["custom_name"]].encode('utf-8')[0:10].decode('utf-8', errors='ignore'))
                 set_cell_text(
                     row_cells, 2, row[excel_column_name["phone_number"]])
+                
+                #增加楼号，如果为555555，则说明订单可能未正确提供楼号，如果为666666，则为嘉怡水岸商务楼（此项优化针对嘉怡水岸）
                 if(  row[excel_column_name["building_number"]]==555555):
                     set_cell_text(
                         row_cells, 3, "未能识别的楼号！\n")
@@ -148,12 +145,13 @@ def add_building_order_table(building_order_data, this_document, groupon_owner, 
                 else:
                     set_cell_text(
                         row_cells, 3, row[excel_column_name["building_number"]])
+
+                #增加房号，如果为555555，则说明订单可能未正确提供房号，如果为666666，则为嘉怡水岸别墅区（此项优化针对嘉怡水岸） 
                 if(  row[excel_column_name["room_number"]]==555555):
                     set_cell_text(
                         row_cells, 4, "未能识别的房号！")
                     print("未能识别"+ row[excel_column_name["custom_name"]]+str(row[excel_column_name["phone_number"]])+"订单的房号，请检查后再试！")
                     exit()
-
                 elif(  row[excel_column_name["room_number"]]==666666):
                     set_cell_text(
                         row_cells, 4, "别墅")
@@ -161,6 +159,7 @@ def add_building_order_table(building_order_data, this_document, groupon_owner, 
                     set_cell_text(
                         row_cells, 4, row[excel_column_name["room_number"]])
 
+                #如果为快团团小区团购，则填写数量。如果为普通团购，则不统计数量（普通团购，没有数量这一列，程序暂无法进行解析）
                 if excel_column_name["quantity"] in product_building_order_data.columns:
                     set_cell_text(
                         row_cells, 5, row[excel_column_name["quantity"]])
@@ -168,6 +167,8 @@ def add_building_order_table(building_order_data, this_document, groupon_owner, 
                 else:
                     set_cell_text(
                         row_cells, 5, "-")
+
+                #团长备注
                 if("remarks" in excel_column_name.keys()):
                     if excel_column_name["remarks"] in product_building_order_data.columns:
                         set_cell_text(
@@ -176,7 +177,7 @@ def add_building_order_table(building_order_data, this_document, groupon_owner, 
 
             # 最后加一行商品合计行
             row_cells = table.add_row().cells
-            
+            # 如果有原订单有数量列，则统计合计数量
             if excel_column_name["quantity"] in product_building_order_data.columns:
                 set_cell_text(row_cells, 0, " " +
                             product_name[i][1]+"——合计", WD_ALIGN_PARAGRAPH.LEFT)
@@ -305,10 +306,9 @@ def output_deliverynote_file(data, send_file_name, groupon_owner, product_name, 
 
 
             number_line_in_page = 0
-            # 按顺序输出每个楼栋的派送单
-            # 最大的楼栋号，用于后续程序格式判断用。
             max_building_number = data[excel_column_name["building_number"]].max(
             )
+            # 最大的楼栋号，用于后续程序格式判断用。
             building_number_list=sorted(product_order_data[excel_column_name["building_number"]].unique())
             for i in building_number_list:
                 # 获得当前楼栋的订单信息
@@ -331,10 +331,6 @@ def output_deliverynote_file(data, send_file_name, groupon_owner, product_name, 
             header.paragraphs[0].text = "派送单" 
 
     this_document.save(send_file_name)
-
-# todo
-# 允许某些列不存在
-
 
 # 主程序入口
 if __name__ == "__main__":
@@ -436,6 +432,7 @@ if __name__ == "__main__":
                                      ["product_name"]].unique()
         number_product_name = len(product_name_in_order)
         
+        #如果原订单为小区团购，包含数量列，则在商品名前加数字前缀。
         product_name = [[]]*number_product_name
         for i in range(number_product_name):
             if excel_column_name["quantity"] in data.columns:
@@ -453,31 +450,41 @@ if __name__ == "__main__":
     if excel_column_name["room_number"] not in data.columns or excel_column_name["building_number"] not in data.columns:
         if excel_column_name["detail_address"]  in data.columns:     
             for index,row in data.iterrows():
+                #先以弄对字符串进行分割，正常情况下弄之后的字符串为楼号和室号，将“号，-，-”统一替换为#，以便下一步区分楼号和室号。
                 detail_address=row[excel_column_name["detail_address"]].split("弄")[-1].replace("号","#").replace("-","#").replace("—","#").split("#")
-                
-                if len(detail_address)>2:
+
+                if len(detail_address)>2:#如果对楼号和室号进行分割后，获得了三个字符串，则只取最后两组字符串作为楼号和室号
                     data.at[index,excel_column_name["building_number"]]=detail_address[-2]
                     data.at[index,excel_column_name["room_number"]]=detail_address[-1]
                 elif len(detail_address)==2:
                     data.at[index,excel_column_name["building_number"]]=detail_address[0]
                     data.at[index,excel_column_name["room_number"]]=detail_address[1]
+                elif len(detail_address)==1 and ("嘉怡水岸"in row[excel_column_name["detail_address"]] or "紫龙路500"in row[excel_column_name["detail_address"]]):
+                    #如果获得的字符串为个，则根据字符串内容判断为商务楼或者别墅（此项优化针对嘉怡水岸小区）
+                    if "商务" in detail_address[0]:
+                        data.at[index,excel_column_name["building_number"]]="商务楼"
+                        data.at[index,excel_column_name["room_number"]]=detail_address[0]
+                    else:
+                        data.at[index,excel_column_name["building_number"]]=detail_address[0]
+                        data.at[index,excel_column_name["room_number"]]="别墅"
                 else:
-                    data.at[index,excel_column_name["room_number"]]="别墅"
+                    print("无法从'"+row[excel_column_name["detail_address"]]+"'解析出楼号和室号，请检查格式")
+                    exit()
 
         else:
             print("未找到完整地址信息，请确认后再试！")
             exit()
 
 
-    # 对室号列进行预处理，过滤掉中文及字符，保留数字部分
+    # 对房号列进行预处理，过滤掉中文及字符，保留数字部分，别墅用666666作为数字代号，未找到房号的以555555作为数字代号
     if(data[excel_column_name["room_number"]].dtype != np.int32 and data[excel_column_name["room_number"]].dtype != np.int64):
         data[excel_column_name["room_number"]] =("555555-"+ data[excel_column_name["room_number"]].astype(
-            str)).str.replace("别墅", "666666-").apply(lambda x: (re.findall("\d+", x)[-1])).apply(pd.to_numeric)
-
-    # 对楼号列进行预处理，过滤掉中文及字符，保留数字部分，紫龙路500弄自动删除
+            str)).str.replace("别墅", "666666-").apply(lambda x: (re.findall("\d+", x)[-1])).apply(pd.to_numeric)#室号转为数字以便排序正确（如果为字符串，1701室会在201室之前，顺序不对）
+        
+    # 对楼号列进行预处理，过滤掉中文及字符，保留数字部分，嘉怡水岸商务楼用666666作为数字代号，未找到楼号的以555555作为数字代号
     if(data[excel_column_name["building_number"]].dtype != np.int32 and data[excel_column_name["building_number"]].dtype != np.int64):
         data[excel_column_name["building_number"]] = (data[excel_column_name["building_number"]].astype(str)+"-555555").str.replace(
-            "500弄", "jiayishuian").str.replace("商务楼", "666666-").apply(lambda x: (re.findall("\d+", x)[0])).apply(pd.to_numeric)
+            "500弄", "jiayishuian").str.replace("商务楼", "666666-").apply(lambda x: (re.findall("\d+", x)[0])).apply(pd.to_numeric)#楼号转为数字以便排序正确（如果为字符串，34号会在5号之前，顺序不对）
 
 
     # 输出派送单不带手机号
