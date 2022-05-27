@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 import re
+import time
 
 import pandas as pd #需要使用pandas库
 import numpy as np  #需要使用numpy库
@@ -334,6 +335,8 @@ def output_deliverynote_file(data, send_file_name, groupon_owner, product_name, 
 
 # 主程序入口
 if __name__ == "__main__":
+
+    start_time = time.time()
     # 检查输入文件，输入文件编码必须为utf-8
     input_file_name = "input.json"
     if os.path.exists(input_file_name):
@@ -486,11 +489,15 @@ if __name__ == "__main__":
         data[excel_column_name["building_number"]] = (data[excel_column_name["building_number"]].astype(str)+"-555555").str.replace(
             "500弄", "jiayishuian").str.replace("商务楼", "666666-").apply(lambda x: (re.findall("\d+", x)[0])).apply(pd.to_numeric)#楼号转为数字以便排序正确（如果为字符串，34号会在5号之前，顺序不对）
 
-
+    print("共花费"+str(time.time()-start_time)+"s完成订单预处理。")
+    start_time2=time.time()
     # 输出派送单不带手机号
     output_deliverynote_file(data, deliverynote_file_name, groupon_owner, product_name, excel_column_name,
                              max_row_number_per_page, page_margin_cm, if_hide_phone_number)
 
+    print("共花费"+str(time.time()-start_time2)+"s完成不带手机号派送单的生成。")
+    
+    start_time2=time.time()
     # 输出派送单（带手机号）
     deliverynote_file_name_with_phone_number = Path(deliverynote_file_name).stem \
         + "（带手机号）" \
@@ -499,3 +506,4 @@ if __name__ == "__main__":
     if if_hide_phone_number:
         output_deliverynote_file(data, deliverynote_file_name_with_phone_number, groupon_owner, product_name, excel_column_name,
                                  max_row_number_per_page, page_margin_cm, False)
+    print("共花费"+str(time.time()-start_time2)+"s完成带手机号派送单的生成。")
