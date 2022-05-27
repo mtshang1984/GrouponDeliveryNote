@@ -294,6 +294,8 @@ def output_deliverynote_file(data, send_file_name, groupon_owner, product_name, 
                 continue
             # 增加一个小节
             new_section = this_document.add_section(WD_SECTION.ODD_PAGE)
+            #设置页码起始为1
+            pgNumType.set(ns.qn('w:start'), "1")
             # 设置页眉
             header = this_document.sections[1+j-number_blank_product].header
             header.is_linked_to_previous = False
@@ -306,10 +308,10 @@ def output_deliverynote_file(data, send_file_name, groupon_owner, product_name, 
                 header.paragraphs[0].text = "派送单——"+product_name[j][1]
 
 
-            number_line_in_page = 0
+            # 最大的楼栋号，用于后续程序格式判断用。
             max_building_number = data[excel_column_name["building_number"]].max(
             )
-            # 最大的楼栋号，用于后续程序格式判断用。
+            number_line_in_page = 0
             building_number_list=sorted(product_order_data[excel_column_name["building_number"]].unique())
             for i in building_number_list:
                 # 获得当前楼栋的订单信息
@@ -489,13 +491,15 @@ if __name__ == "__main__":
         data[excel_column_name["building_number"]] = (data[excel_column_name["building_number"]].astype(str)+"-555555").str.replace(
             "500弄", "jiayishuian").str.replace("商务楼", "666666-").apply(lambda x: (re.findall("\d+", x)[0])).apply(pd.to_numeric)#楼号转为数字以便排序正确（如果为字符串，34号会在5号之前，顺序不对）
 
-    print("共花费"+str(time.time()-start_time)+"s完成订单预处理。")
+    print(f"共花费{(time.time()-start_time):0.1f}s完成订单预处理。")
+
+
     start_time2=time.time()
     # 输出派送单不带手机号
     output_deliverynote_file(data, deliverynote_file_name, groupon_owner, product_name, excel_column_name,
                              max_row_number_per_page, page_margin_cm, if_hide_phone_number)
 
-    print("共花费"+str(time.time()-start_time2)+"s完成不带手机号派送单的生成。")
+    print(f"共花费{(time.time()-start_time2):0.1f}s完成派送单(不带手机号)的生成。")
     
     start_time2=time.time()
     # 输出派送单（带手机号）
@@ -504,6 +508,5 @@ if __name__ == "__main__":
         + Path(deliverynote_file_name).suffix
 
     if if_hide_phone_number:
-        output_deliverynote_file(data, deliverynote_file_name_with_phone_number, groupon_owner, product_name, excel_column_name,
-                                 max_row_number_per_page, page_margin_cm, False)
-    print("共花费"+str(time.time()-start_time2)+"s完成带手机号派送单的生成。")
+        output_deliverynote_file(data, deliverynote_file_name_with_phone_number, groupon_owner, product_name, excel_column_name, max_row_number_per_page, page_margin_cm, False)
+    print(f"共花费{(time.time()-start_time2):0.1f}s完成派送单(带手机号)的生成。")
