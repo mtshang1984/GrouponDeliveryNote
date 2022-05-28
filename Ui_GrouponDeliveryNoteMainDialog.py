@@ -98,4 +98,4 @@ class Ui_Dialog(object):
         self.groupBox_2.setTitle(_translate("Dialog", "输出"))
         self.pushButtonSaveFile.setText(_translate("Dialog", "选择保存路径"))
         self.pushButtonQuit.setText(_translate("Dialog", "退出"))
-        self.pushButtonStartConvert.setText(_translate("Dialog", "点击转换"))
+        self.pushButtonStartConvert.setText(_translate("Dialog", "开始转换"))

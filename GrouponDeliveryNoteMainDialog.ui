@@ -231,7 +231,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>点击转换</string>
+    <string>开始转换</string>
    </property>
   </widget>
   <zorder>groupBox_2</zorder>
