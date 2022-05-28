@@ -4,7 +4,7 @@ GrouponDeliveryNote程序由小涛开发，主要用于协助团长自动整理�
 
 # 运行环境要求：
 
-* 支持Linux、windows操作系统。Windows操作系统需高于win7 x64 SP1，如果为win7，需要安装windows的代号为KB2533623的64位版本的补丁，视情安装.netFrameWork。
+* 支持Linux、windows操作系统。Windows操作系统需高于win7 x64 SP1，如果为win7，需要安装windows的代号为KB2533623的64位版本的补丁，视情安装.netFrameWork。Linux系统可直接运行python源码。
 
 
 # 使用方法：
