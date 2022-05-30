@@ -1,5 +1,7 @@
-
 # 主程序入口
+
+
+#本程序打包时需要包含pyqt5,numpy,pandas,python-docx,xlrd
 import sys
 
 from GrouponDeliveryNoteFunction import main_program
@@ -17,7 +19,6 @@ if __name__ == "__main__":
         app=QApplication(sys.argv)
         main_dialog_handle=MainDialogHandle()
         main_dialog_handle.show()
-        # message_box= QMessageBox()
         sys.exit(app.exec_())
         
 
