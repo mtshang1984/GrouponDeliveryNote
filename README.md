@@ -12,7 +12,7 @@ GrouponDeliveryNote程序由小涛开发，主要用于协助团长自动整理�
 * 1、到[本程序Release栏目](https://github.com/mtshang1984/GrouponDeliveryNote/releases)下找到最新版本进行下载，下载后解压至某一目录下，找到GrouponDeliveryNote.exe文件，双击开始运行 <br>
 
 * 2、将快团团订单文件拖拽至对话框界面，按需选择“输出时隐藏手机号”、“排序方式”和“表题顺序”等选项后，单击“开始转换”按钮，即可生成派送单。
-    * 派送单样式有四种类型，分别参见
+    * 派送单样式有四种类型，分别如下
       * 按商品-楼号-房号排序：见“[20220525浮生若梦水果套餐派送单（含手机号）（按商品-楼号-房号排序）.docx](https://github.com/mtshang1984/GrouponDeliveryNote/blob/main/20220525%E6%B5%AE%E7%94%9F%E8%8B%A5%E6%A2%A6%E6%B0%B4%E6%9E%9C%E5%A5%97%E9%A4%90%E6%B4%BE%E9%80%81%E5%8D%95%EF%BC%88%E5%90%AB%E6%89%8B%E6%9C%BA%E5%8F%B7%EF%BC%89%EF%BC%88%E6%8C%89%E5%95%86%E5%93%81-%E6%A5%BC%E5%8F%B7-%E6%88%BF%E5%8F%B7%E6%8E%92%E5%BA%8F%EF%BC%89.docx?raw=true)”。楼栋的单据之间增加分隔线以方便裁剪。
       * 按楼号-商品-房号排序：见“[20220525浮生若梦水果套餐派送单（含手机号）（按楼号-商品-房号排序）.docx](https://github.com/mtshang1984/GrouponDeliveryNote/blob/main/20220525%E6%B5%AE%E7%94%9F%E8%8B%A5%E6%A2%A6%E6%B0%B4%E6%9E%9C%E5%A5%97%E9%A4%90%E6%B4%BE%E9%80%81%E5%8D%95%EF%BC%88%E5%90%AB%E6%89%8B%E6%9C%BA%E5%8F%B7%EF%BC%89%EF%BC%88%E6%8C%89%E6%A5%BC%E5%8F%B7-%E5%95%86%E5%93%81-%E6%88%BF%E5%8F%B7%E6%8E%92%E5%BA%8F%EF%BC%89.docx?raw=true)”。
       * 按楼号-房号-商品排序：见“[20220525浮生若梦水果套餐派送单（含手机号）（按楼号-房号-商品排序）.docx](https://github.com/mtshang1984/GrouponDeliveryNote/blob/main/20220525%E6%B5%AE%E7%94%9F%E8%8B%A5%E6%A2%A6%E6%B0%B4%E6%9E%9C%E5%A5%97%E9%A4%90%E6%B4%BE%E9%80%81%E5%8D%95%EF%BC%88%E5%90%AB%E6%89%8B%E6%9C%BA%E5%8F%B7%EF%BC%89%EF%BC%88%E6%8C%89%E6%A5%BC%E5%8F%B7-%E6%88%BF%E5%8F%B7-%E5%95%86%E5%93%81%E6%8E%92%E5%BA%8F%EF%BC%89.docx?raw=true)”。
