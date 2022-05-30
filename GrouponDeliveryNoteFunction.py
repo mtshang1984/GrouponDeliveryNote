@@ -20,7 +20,7 @@ from docx.oxml.ns import qn
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.oxml import OxmlElement, ns
 
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMessageBox,QApplication
 
 
 def create_element(name):
@@ -673,9 +673,11 @@ def get_building_number_room_number_from_detial_adrees(detail_address,if_upstrea
         messagebox_text= f'无法从"{detail_address_list}"解析出楼号和室号，请检查格式'
         if if_use_pyqt:
             QMessageBox.critical(qtwidgets,"错误对话框",messagebox_text)
+            app = QApplication.instance()
+            app.quit()
         else:
             print(messagebox_text)
-        exit()
+            exit()
 
 
     building_number=re.findall("\d+", (building_number+"-555555").replace(
@@ -711,9 +713,11 @@ def main_program(input_file_name,if_use_pyqt=False,qtwidgets=None):
         messagebox_text=f"未找到输入文件：{input_file_name}"
         if if_use_pyqt:
             QMessageBox.critical(qtwidgets,messagebox_text)
+            app = QApplication.instance()
+            app.quit()
         else:
             print(messagebox_text)
-        exit()
+            exit()
 
     # 团长名字
     if "groupon_owner" in program_input:
@@ -728,9 +732,11 @@ def main_program(input_file_name,if_use_pyqt=False,qtwidgets=None):
         messagebox_text= f"未指定订单文件{order_file_name}，请确认！"
         if if_use_pyqt:
             QMessageBox.critical(qtwidgets,messagebox_text)
+            app = QApplication.instance()
+            app.quit()
         else:
             print(messagebox_text)            
-        exit()
+            exit()
 
 
     # 派送单排序方法
@@ -889,9 +895,11 @@ def main_program(input_file_name,if_use_pyqt=False,qtwidgets=None):
             messagebox_text= "订单中未找到完整地址信息，请确认后再试！"
             if if_use_pyqt:
                 QMessageBox.critical(qtwidgets,messagebox_text)
+                app = QApplication.instance()
+                app.quit()
             else:
                 print(messagebox_text)            
-            exit()
+                exit()
     else:
         # 对房号列进行预处理，过滤掉中文及字符，保留数字部分，别墅用666666作为数字代号，未找到房号的以555555作为数字代号
         if(data[excel_column_name["room_number"]].dtype != np.int32 and data[excel_column_name["room_number"]].dtype != np.int64):

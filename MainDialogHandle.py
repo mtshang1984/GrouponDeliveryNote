@@ -5,7 +5,7 @@ import os
 from pathlib import Path, PurePosixPath
 import webbrowser
 from PyQt5 import QtWidgets,QtCore
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMessageBox,QApplication
 from PyQt5.QtCore import QStringListModel 
 from GrouponDeliveryNoteFunction import generate_deliverynote_file_name, main_program
 
@@ -219,6 +219,7 @@ class MainDialogHandle(QtWidgets.QDialog):
                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         # 
         if reply == QMessageBox.Yes:
-            exit()
+            app = QApplication.instance()
+            app.quit()
         else:
             return False
