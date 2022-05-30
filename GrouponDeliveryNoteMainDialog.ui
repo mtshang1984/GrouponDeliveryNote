@@ -6,18 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>624</width>
-    <height>266</height>
+    <width>740</width>
+    <height>423</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>GrouponDeliveryNote</string>
+   <string>GrouponDeliveryNote V1.2</string>
   </property>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>150</y>
+     <y>320</y>
      <width>80</width>
      <height>30</height>
     </rect>
@@ -33,8 +33,8 @@
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>150</y>
-     <width>331</width>
+     <y>320</y>
+     <width>451</width>
      <height>30</height>
     </rect>
    </property>
@@ -46,7 +46,7 @@
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>220</y>
+     <y>380</y>
      <width>100</width>
      <height>30</height>
     </rect>
@@ -58,8 +58,8 @@
   <widget class="QPushButton" name="pushButtonAbout">
    <property name="geometry">
     <rect>
-     <x>380</x>
-     <y>220</y>
+     <x>500</x>
+     <y>380</y>
      <width>100</width>
      <height>30</height>
     </rect>
@@ -71,8 +71,8 @@
   <widget class="QPushButton" name="pushButtonCheckUpdate">
    <property name="geometry">
     <rect>
-     <x>260</x>
-     <y>220</y>
+     <x>380</x>
+     <y>380</y>
      <width>100</width>
      <height>30</height>
     </rect>
@@ -86,8 +86,8 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>591</width>
-     <height>111</height>
+     <width>701</width>
+     <height>281</height>
     </rect>
    </property>
    <property name="title">
@@ -96,8 +96,8 @@
    <widget class="QCheckBox" name="checkBoxIfHidePhoneNumber">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>60</y>
+      <x>20</x>
+      <y>100</y>
       <width>141</width>
       <height>30</height>
      </rect>
@@ -112,8 +112,8 @@
    <widget class="QCheckBox" name="checkBoxIfDirectReadInputJson">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>60</y>
+      <x>210</x>
+      <y>100</y>
       <width>171</width>
       <height>30</height>
      </rect>
@@ -125,8 +125,8 @@
    <widget class="QPushButton" name="pushButtonSelectFile">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>20</y>
+      <x>590</x>
+      <y>60</y>
       <width>100</width>
       <height>30</height>
      </rect>
@@ -139,8 +139,8 @@
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>60</y>
-      <width>121</width>
+      <y>20</y>
+      <width>451</width>
       <height>30</height>
      </rect>
     </property>
@@ -149,7 +149,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>60</y>
+      <y>20</y>
       <width>80</width>
       <height>30</height>
      </rect>
@@ -162,7 +162,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>20</y>
+      <y>60</y>
       <width>80</width>
       <height>30</height>
      </rect>
@@ -175,10 +175,75 @@
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>20</y>
-      <width>331</width>
+      <y>60</y>
+      <width>451</width>
       <height>30</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QListView" name="listViewSequence">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>150</y>
+      <width>231</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>140</y>
+      <width>80</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>排序方式</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>140</y>
+      <width>80</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>表题顺序</string>
+    </property>
+   </widget>
+   <widget class="QListView" name="listViewTitleSequence">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>150</y>
+      <width>231</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBoxIfAutomatedSetOutputPath">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>100</y>
+      <width>171</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>自动设置输出路径</string>
     </property>
    </widget>
   </widget>
@@ -186,8 +251,8 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>130</y>
-     <width>591</width>
+     <y>300</y>
+     <width>701</width>
      <height>71</height>
     </rect>
    </property>
@@ -197,7 +262,7 @@
    <widget class="QPushButton" name="pushButtonSaveFile">
     <property name="geometry">
      <rect>
-      <x>470</x>
+      <x>590</x>
       <y>20</y>
       <width>100</width>
       <height>30</height>
@@ -211,8 +276,8 @@
   <widget class="QPushButton" name="pushButtonQuit">
    <property name="geometry">
     <rect>
-     <x>500</x>
-     <y>220</y>
+     <x>610</x>
+     <y>380</y>
      <width>100</width>
      <height>30</height>
     </rect>
@@ -225,13 +290,26 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>220</y>
+     <y>380</y>
      <width>100</width>
      <height>30</height>
     </rect>
    </property>
    <property name="text">
     <string>开始转换</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonSaveConfig">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>380</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>保存配置</string>
    </property>
   </widget>
   <zorder>groupBox_2</zorder>
@@ -243,6 +321,7 @@
   <zorder>pushButtonCheckUpdate</zorder>
   <zorder>pushButtonQuit</zorder>
   <zorder>pushButtonStartConvert</zorder>
+  <zorder>pushButtonSaveConfig</zorder>
  </widget>
  <resources/>
  <connections/>
