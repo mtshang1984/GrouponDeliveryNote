@@ -9,7 +9,7 @@ GrouponDeliveryNote程序由小涛开发，主要用于协助团长自动整理�
 
 # Windows下使用方法：
 
-* 1、下载[本程序](https://github.com/mtshang1984/GrouponDeliveryNote/releases)最新版本，并解压至某一目录下，GrouponDeliveryNote.exe开始运行 <br>
+* 1、到[本程序Release栏目](https://github.com/mtshang1984/GrouponDeliveryNote/releases)下找到最新版本进行下载，下载后解压至某一目录下，找到GrouponDeliveryNote.exe文件，双击开始运行 <br>
 
 * 2、将快团团订单文件拖拽至对话框界面，按需选择“输出时隐藏手机号”、“排序方式”和“表题顺序”等选项后，单击“开始转换”按钮，即可生成派送单。
     * 派送单样式有四种类型，分别参见
