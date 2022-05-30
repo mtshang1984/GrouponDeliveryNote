@@ -206,7 +206,7 @@ class MainDialogHandle(QtWidgets.QDialog):
 
     #查看程序更新
     def check_update(self):
-        url="https://github.com/mtshang1984/GrouponDeliveryNote"
+        url="https://github.com/mtshang1984/GrouponDeliveryNote/releases"
         webbrowser.open(url)
     #关于
     def about(self):
