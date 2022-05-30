@@ -23,10 +23,10 @@ GrouponDeliveryNote程序由小涛开发，主要用于协助团长自动整理�
 # 用户界面
 ![image](https://user-images.githubusercontent.com/12483423/171040934-51af0a7b-69dd-438e-ba1b-2501501ee7c8.png)
 # 派送单样式
-   * 纸条式
-![image](https://user-images.githubusercontent.com/12483423/171041233-6c6ef2c2-0968-4147-9ebe-f119e9cc469e.png)
-   * 标签式
-![image](https://user-images.githubusercontent.com/12483423/171041098-d1baa589-9c13-4d17-82b3-0e4e309c9e61.png)
+   * 纸条式 </p>
+      ![image](https://user-images.githubusercontent.com/12483423/171041233-6c6ef2c2-0968-4147-9ebe-f119e9cc469e.png)
+   * 标签式 </p>
+      ![image](https://user-images.githubusercontent.com/12483423/171041098-d1baa589-9c13-4d17-82b3-0e4e309c9e61.png)
 
 # 版本更新：
 * 2022.05.31日发布本程序开源版V1.2版： <br>
