@@ -29,6 +29,7 @@ GrouponDeliveryNote程序由小涛开发，主要用于协助团长自动整理�
    * 标签式
    
 <img src="https://user-images.githubusercontent.com/12483423/171044584-9bceec1e-2ee8-4902-9e55-a05d17ed4e8d.png" width="500">
+
 # 赞助说明
 GrouponDeliveryNote软件使用完全免费。如果您觉得软件好用，欢迎您赞助作者以用于后续维护和升级费用。
 
