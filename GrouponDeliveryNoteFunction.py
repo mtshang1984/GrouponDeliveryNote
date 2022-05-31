@@ -1057,7 +1057,7 @@ def main_program(input_file_name,if_use_pyqt=False,qtwidgets=None):
         # 对楼号列进行预处理，过滤掉中文及字符，保留数字部分，商务楼用666666作为数字代号，未找到楼号的以555555作为数字代号
         if(data[excel_column_name["building_number"]].dtype != np.int32 and data[excel_column_name["building_number"]].dtype != np.int64):
             data[excel_column_name["building_number"]] = (data[excel_column_name["building_number"]].astype(str)+"-555555").str.replace(
-                "紫龙500", "嘉怡水岸").str.replace(".*龙吴路5899.*", "666666-",regex=True).str.replace(".*商务楼.*", "666666-",regex=True).apply(lambda x: (re.findall("\d+", x)[0])).apply(pd.to_numeric)#楼号转为数字以便排序正确（如果为字符串，34号会在5号之前，顺序不对）
+                "紫龙路500", "嘉怡水岸").str.replace(".*龙吴路5899.*", "666666-",regex=True).str.replace(".*商务楼.*", "666666-",regex=True).apply(lambda x: (re.findall("\d+", x)[0])).apply(pd.to_numeric)#楼号转为数字以便排序正确（如果为字符串，34号会在5号之前，顺序不对）
 
     #针对嘉怡水岸小区检查房号是否正确
     if if_upstream_park:
