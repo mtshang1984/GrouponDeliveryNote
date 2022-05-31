@@ -7,6 +7,7 @@ from tkinter import messagebox
 import pandas as pd #需要使用pandas库
 import numpy as np  #需要使用numpy库
 import json
+import docx
 from docx import Document  
 from docx.shared import Cm
 from docx.shared import Pt
@@ -60,6 +61,7 @@ def add_page_number(run):
 # 设置word表格列宽度
 def set_column_width(table, columns, width_cm):
     col = table.columns[columns]
+    col.width=Cm(width_cm)
     for cell in col.cells:
         cell.width = Cm(width_cm)
 
@@ -83,7 +85,7 @@ def set_cell_text(row, index_row, text, alignment=WD_ALIGN_PARAGRAPH.CENTER):
     row[index_row].paragraphs[0].alignment = alignment
     row[index_row].vertical_alignment = WD_ALIGN_VERTICAL.CENTER
 
-def set_cell_text_for_lable(row, index_row, text_list, alignment=WD_ALIGN_PARAGRAPH.CENTER):
+def set_cell_text_for_product_lable(row, index_row, text_list, alignment=WD_ALIGN_PARAGRAPH.CENTER):
     row[index_row].vertical_alignment = WD_ALIGN_VERTICAL.CENTER
     for i in range(len(text_list)):
         if i==0:
@@ -97,11 +99,67 @@ def set_cell_text_for_lable(row, index_row, text_list, alignment=WD_ALIGN_PARAGR
             run = para.add_run(str(text_list[i]))
             run.font.size= Pt(11)
             
-        run.font.name="微软雅黑"
-        
+        run.font.name = '微软雅黑'
         run.font.name = u'微软雅黑'
         run._element.rPr.rFonts.set(qn('w:eastAsia'), u'微软雅黑')
         run.font.bold=True
+
+
+def set_cell_text_for_room_lable(groupon_owner,row, index_row, text_list,product_order_list,quantity_list,product_name_list):
+    row[index_row].vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+    for i in range(len(text_list)):
+        if i==0:
+            para=row[index_row].paragraphs[0]
+            para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            run = para.add_run(str(text_list[i]))
+            run.font.size= Pt(36)
+        else:
+            para=row[index_row].add_paragraph()
+            para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            para.left_indent = Cm(.75)
+            run = para.add_run(str(text_list[i]))
+            run.font.size= Pt(11)
+            
+        run.font.name = u'微软雅黑'
+        run._element.rPr.rFonts.set(qn('w:eastAsia'), u'微软雅黑')
+        run.font.bold=True
+
+
+    table = row[index_row].add_table(rows=1, cols=2)
+    table.style=='TableGrid'
+    table.autofit = False
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    hdr_cells = table.rows[0].cells
+    set_cell_text(hdr_cells, 0, f'商品名称(团长：{groupon_owner})')
+    set_cell_text(hdr_cells, 1, '数量')
+    set_column_width(table, 0, 8)
+    set_column_width(table, 1, 1.5)
+
+    for i in range(len(product_order_list)):
+        row_cells = table.add_row().cells
+        
+        product_name=product_name_list[list(product_name_list[:, 0]).index(product_order_list[i])][1].encode('utf-8')[0:50].decode('utf-8', errors='ignore')
+        set_cell_text(
+            row_cells, 0, product_name)
+        set_cell_text(
+            row_cells, 1, quantity_list[i])
+    add_all_border(table)
+    #表格边框
+def add_border(table,position):
+    borders = OxmlElement('w:tblBorders')
+    border =  OxmlElement(f'w:{position}')
+    border.set(qn('w:val'), 'single')
+    border.set(qn('w:sz'), '4')
+    borders.append(border)
+    table._tbl.tblPr.append(borders)
+
+def add_all_border(table):
+    add_border(table,"top")
+    add_border(table,"bottom")
+    add_border(table,"left")
+    add_border(table,"right")
+    add_border(table,"insideH")
+    add_border(table,"insideV")
 
 # 增加一个word表格列出商品派送名细
 def add_building_order_table(building_order_data, this_document, groupon_owner, product_name_list, excel_column_name, building_number, max_building_number, number_line_in_page, max_row_number_per_page, tile_sequence=1,if_hide_phone_number=True,if_upstream_park=False,if_use_pyqt=False,qtwidgets=None):
@@ -432,7 +490,7 @@ def set_first_page(this_document,page_margin_cm,show_sequence):
         section.left_margin = Cm(page_margin_cm["left_margin"])
         section.right_margin = Cm(page_margin_cm["right_margin"])
 
-    if show_sequence!=4:
+    if show_sequence!=4 and show_sequence!=5:
         add_page_number(this_document.sections[0].footer.paragraphs[0].add_run())    
         this_document.sections[0].footer.paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
         this_document.sections[0].different_first_page_header_footer = False
@@ -468,16 +526,28 @@ def save_document(this_document,filename,if_use_pyqt,qtwidgets):
             print(messagebox_text)
             return False
 
-#增加包含标签的表格
-def add_lable_table(this_document):
+#增加包含每件商品标签的表格
+def add_product_lable_table(this_document):
     
     table = this_document.add_table(rows=5, cols=3, style='Table Grid')
     table.autofit = False
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
-    for i in range(2):
+    for i in range(3):
         set_column_width(table,i,6.9)
     for i in range(5):
         set_row_height(table,i,5.3)
+    return table
+
+#增加包含每户商品标签的表格
+def add_room_lable_table(this_document,number_row):
+    
+    table = this_document.add_table(rows=number_row, cols=2, style='Table Grid')
+    table.autofit = False
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    for i in range(2):
+        set_column_width(table,i,10.3)
+    for i in range(number_row):
+        set_row_height(table,i,6.6)
     return table
 
 # 输出派送单word文件以供打印
@@ -542,12 +612,12 @@ def output_deliverynote_file(data, delivery_note_file_name, groupon_owner, produ
         building_number_list=sorted(data[excel_column_name["building_number"]].unique())
         for i in building_number_list:
             # 获得当前楼栋的订单信息
-            product_building_order_data = data.loc[data[excel_column_name["building_number"]] == i].copy(
+            building_order_data = data.loc[data[excel_column_name["building_number"]] == i].copy(
             )
 
-            if product_building_order_data.shape[0] > 0:
+            if building_order_data.shape[0] > 0:
                 # 增加当前楼栋的表单
-                number_line_in_page = add_building_order_table(product_building_order_data, this_document, groupon_owner, product_name_list,
+                number_line_in_page = add_building_order_table(building_order_data, this_document, groupon_owner, product_name_list,
                                                             excel_column_name, i, max_building_number, number_line_in_page, max_row_number_per_page, tile_sequence,if_hide_phone_number,if_upstream_park,if_use_pyqt,qtwidgets)
                 if number_line_in_page ==-1:
                     return False
@@ -563,13 +633,13 @@ def output_deliverynote_file(data, delivery_note_file_name, groupon_owner, produ
         building_number_list=sorted(data[excel_column_name["building_number"]].unique())
         for i in building_number_list:
             # 获得当前楼栋的订单信息
-            product_building_order_data = data.loc[data[excel_column_name["building_number"]] == i].copy(
+            building_order_data = data.loc[data[excel_column_name["building_number"]] == i].copy(
             )
-            if product_building_order_data.shape[0] > 0:
-                room_number_list=sorted(product_building_order_data[excel_column_name["room_number"]].unique())
+            if building_order_data.shape[0] > 0:
+                room_number_list=sorted(building_order_data[excel_column_name["room_number"]].unique())
                 for j in room_number_list:
                     # 获得当前户的订单信息
-                    room_order_data = product_building_order_data.loc[data[excel_column_name["room_number"]] == j].copy()
+                    room_order_data = building_order_data.loc[data[excel_column_name["room_number"]] == j].copy()
                     if(room_order_data.shape[0] > 0):
                         number_line_in_page = add_room_order_table(room_order_data, this_document, groupon_owner, product_name_list,excel_column_name, number_line_in_page, max_row_number_per_page, if_hide_phone_number,if_upstream_park,if_use_pyqt,qtwidgets)
                         if number_line_in_page ==-1:
@@ -579,7 +649,7 @@ def output_deliverynote_file(data, delivery_note_file_name, groupon_owner, produ
     elif(show_sequence==4):
         set_first_page(this_document,page_margin_cm,show_sequence)
         number_label_in_page = 0
-        table = add_lable_table(this_document)
+        table = add_product_lable_table(this_document)
 
         for i in range(product_name_list.shape[0]):
             # 获取本套餐订单数据
@@ -601,7 +671,7 @@ def output_deliverynote_file(data, delivery_note_file_name, groupon_owner, produ
                     for k in range(quantity):
                         if number_label_in_page>=15:
                             number_label_in_page=number_label_in_page-15
-                            table = add_lable_table(this_document)
+                            table = add_product_lable_table(this_document)
 
                         index_row=int((number_label_in_page)/3)
                         index_column=number_label_in_page+1-3*(index_row)-1
@@ -617,13 +687,88 @@ def output_deliverynote_file(data, delivery_note_file_name, groupon_owner, produ
                             additional_string=""
                         else:
                             additional_string=str(phone_number)
-                        set_cell_text_for_lable(row_cells, index_column, [building_number_and_room_number,custom_name+additional_string,product_name,f'总{index_in_product+1}/{product_quantity_sum}(本楼{index_in_product_building+1}/{product_building_quantity_sum}){groupon_owner_string}'])
+                        set_cell_text_for_product_lable(row_cells, index_column, [building_number_and_room_number,custom_name+additional_string,product_name,f'总{index_in_product+1}/{product_quantity_sum}(本楼{index_in_product_building+1}/{product_building_quantity_sum}){groupon_owner_string}'])
                         index_in_product=index_in_product+1
+                        if number_label_in_page>=15:
+                            number_label_in_page=number_label_in_page-15
+                            table = add_product_lable_table(this_document)
                         index_in_product_building=index_in_product_building+1
                         number_label_in_page=number_label_in_page+1
 
             #不同品种之间空一格
             number_label_in_page=number_label_in_page+1
+    elif(show_sequence==5):
+        #设置首页格式
+        set_first_page(this_document,page_margin_cm,show_sequence)
+        max_label_in_normal_page=8
+        max_label_in_this_page=max_label_in_normal_page
+        max_label_in_next_page=max_label_in_normal_page
+
+        #商品排序词典
+        product_name_dict={}
+        for i in range(product_name_list.shape[0]):
+            product_name_dict[product_name_list[i,0]]=i
+
+        number_label_in_page = 0
+        table = add_room_lable_table(this_document,int(max_label_in_next_page/2))
+        building_number_list=sorted(data[excel_column_name["building_number"]].unique())
+        for i in building_number_list:
+            building_order_data = data.loc[data[excel_column_name["building_number"]] == i].copy()
+            if building_order_data.shape[0] > 0:
+                room_number_list=sorted(building_order_data[excel_column_name["room_number"]].unique())
+                for j in room_number_list:
+                    # 获得当前户的订单信息
+                    room_order_data = building_order_data.loc[data[excel_column_name["room_number"]] == j].copy()
+                    # 商品名称排序
+                    if(room_order_data.shape[0] > 1):
+                        room_order_data = room_order_data.sort_values(
+                            by=excel_column_name["product_name"], key=lambda x:x.map(product_name_dict))
+
+                    #超过本页最大数量，换页
+                    if number_label_in_page>=max_label_in_this_page:
+                        number_label_in_page=0
+                        table = add_room_lable_table(this_document,int(max_label_in_next_page/2))
+                        max_label_in_this_page=max_label_in_next_page
+                        max_label_in_next_page=max_label_in_normal_page                         
+
+                    #计算标签在表格中的位置
+                    index_row=int((number_label_in_page)/2)
+                    index_column=number_label_in_page+1-2*(index_row)-1
+                    row_cells = table.rows[index_row].cells
+                    #每户商品订单信息
+                    
+                    custom_name=room_order_data[excel_column_name["custom_name"]].tolist()[0].encode('utf-8')[0:10].decode('utf-8', errors='ignore')
+                    phone_number=room_order_data[excel_column_name["phone_number"]].tolist()[0]
+                    if if_hide_phone_number:
+                        additional_string=""
+                    else:
+                        additional_string=str(phone_number)
+
+                    building_number_and_room_number=merge_building_number_and_room_number(room_order_data[excel_column_name["building_number"]].tolist()[0],room_order_data[excel_column_name["room_number"]].tolist()[0],if_upstream_park,True)
+
+                    set_cell_text_for_room_lable(groupon_owner,row_cells, index_column, [building_number_and_room_number,custom_name+additional_string],room_order_data[excel_column_name["product_name"]].tolist(),room_order_data[excel_column_name["quantity"]].tolist(),product_name_list)
+                    if index_column==0:
+                        if_has_enlarge_this_row=False
+
+                    if len(room_order_data[excel_column_name["quantity"]])>5 and if_has_enlarge_this_row ==False:
+                        set_row_height(table,index_row,13.2)
+                        if number_label_in_page<=max_label_in_this_page-2:
+                            number_label_in_page=number_label_in_page+1
+                            max_label_in_next_page=max_label_in_next_page-2
+                            if_has_enlarge_this_row=True
+                        else:
+                            number_label_in_page=number_label_in_page+1
+                            max_label_in_next_page=max_label_in_next_page-4
+                            if_has_enlarge_this_row=True
+                    else:        
+                        #超过本页最大数量
+                        if number_label_in_page>=max_label_in_this_page:
+                            number_label_in_page=0
+                            table = add_room_lable_table(this_document,int(max_label_in_next_page/2))   
+                            max_label_in_this_page=max_label_in_next_page
+                            max_label_in_next_page=max_label_in_normal_page                         
+                        number_label_in_page=number_label_in_page+1
+
     else:
         messagebox_text= f"不支持show_sequence值为{show_sequence}的排序方式！"
         if if_use_pyqt:
@@ -698,7 +843,9 @@ def generate_deliverynote_file_name(order_file_name,if_hide_phone_number,show_se
         elif(show_sequence==3):
             keyword=keyword+"（按楼号-房号-商品排序）"
         elif(show_sequence==4):
-            keyword=keyword+"（打印标签）"
+            keyword=keyword+"（打印件标签）"
+        elif(show_sequence==5):
+            keyword=keyword+"（打印户标签）"
 
         return str(PurePosixPath(order_file_name).parent)+"/"+Path(order_file_name).stem+"派送单"+keyword+".docx"
 
@@ -804,7 +951,7 @@ def main_program(input_file_name,if_use_pyqt=False,qtwidgets=None):
                 "left_margin": 3,
                 "right_margin": 1
             }
-        elif show_sequence ==4:
+        elif show_sequence ==4 or show_sequence==5:
             page_margin_cm = {
                 "top_margin": 0.5,
                 "bottom_margin": 0.2,
