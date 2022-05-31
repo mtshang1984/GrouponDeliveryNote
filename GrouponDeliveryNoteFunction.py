@@ -670,7 +670,7 @@ def output_deliverynote_file(data, delivery_note_file_name, groupon_owner, produ
                     quantity=int(row[excel_column_name["quantity"]])
                     for k in range(quantity):
                         if number_label_in_page>=15:
-                            number_label_in_page=number_label_in_page-15
+                            number_label_in_page=0
                             table = add_product_lable_table(this_document)
 
                         index_row=int((number_label_in_page)/3)
@@ -690,7 +690,7 @@ def output_deliverynote_file(data, delivery_note_file_name, groupon_owner, produ
                         set_cell_text_for_product_lable(row_cells, index_column, [building_number_and_room_number,custom_name+additional_string,product_name,f'总{index_in_product+1}/{product_quantity_sum}(本楼{index_in_product_building+1}/{product_building_quantity_sum}){groupon_owner_string}'])
                         index_in_product=index_in_product+1
                         if number_label_in_page>=15:
-                            number_label_in_page=number_label_in_page-15
+                            number_label_in_page=0
                             table = add_product_lable_table(this_document)
                         index_in_product_building=index_in_product_building+1
                         number_label_in_page=number_label_in_page+1
