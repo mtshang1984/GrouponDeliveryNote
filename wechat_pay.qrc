@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="wechat">
+    <file>wechat_pay.jpg</file>
+  </qresource>
+</RCC>

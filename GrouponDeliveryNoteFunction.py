@@ -832,7 +832,7 @@ def main_program(input_file_name,if_use_pyqt=False,qtwidgets=None):
         deliverynote_file_name=generate_deliverynote_file_name(order_file_name,if_hide_phone_number,show_sequence)
 
     # 读入快团团订单数据
-    data = pd.read_excel(order_file_name, keep_default_na=False)
+    data = pd.read_excel(order_file_name, keep_default_na=False,engine='openpyxl')
 
     # 判断订单是否快团团社区团购
     if excel_column_name["quantity"] in data.columns:

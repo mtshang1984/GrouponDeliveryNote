@@ -7,7 +7,7 @@ import sys
 from GrouponDeliveryNoteFunction import main_program
 from MainDialogHandle import MainDialogHandle
 
-from PyQt5.QtWidgets import QApplication,QMessageBox  #需要使用pyqt5类库
+from PyQt5.QtWidgets import QApplication #需要使用pyqt5类库
 
 
 if __name__ == "__main__":
@@ -20,5 +20,3 @@ if __name__ == "__main__":
         main_dialog_handle=MainDialogHandle()
         main_dialog_handle.show()
         sys.exit(app.exec_())
-        
-

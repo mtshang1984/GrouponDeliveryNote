@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>740</width>
-    <height>423</height>
+    <width>718</width>
+    <height>422</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,7 +34,7 @@
     <rect>
      <x>130</x>
      <y>320</y>
-     <width>451</width>
+     <width>461</width>
      <height>30</height>
     </rect>
    </property>
@@ -45,7 +45,7 @@
   <widget class="QPushButton" name="pushButtonOpenDeliveryNote">
    <property name="geometry">
     <rect>
-     <x>140</x>
+     <x>130</x>
      <y>380</y>
      <width>100</width>
      <height>30</height>
@@ -58,20 +58,20 @@
   <widget class="QPushButton" name="pushButtonAbout">
    <property name="geometry">
     <rect>
-     <x>500</x>
+     <x>490</x>
      <y>380</y>
      <width>100</width>
      <height>30</height>
     </rect>
    </property>
    <property name="text">
-    <string>关于</string>
+    <string>关于与赞助</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButtonCheckUpdate">
    <property name="geometry">
     <rect>
-     <x>380</x>
+     <x>370</x>
      <y>380</y>
      <width>100</width>
      <height>30</height>
@@ -140,7 +140,7 @@
      <rect>
       <x>120</x>
       <y>20</y>
-      <width>451</width>
+      <width>461</width>
       <height>30</height>
      </rect>
     </property>
@@ -176,7 +176,7 @@
      <rect>
       <x>120</x>
       <y>60</y>
-      <width>451</width>
+      <width>461</width>
       <height>30</height>
      </rect>
     </property>
@@ -210,7 +210,7 @@
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>380</x>
       <y>140</y>
       <width>80</width>
       <height>30</height>
@@ -223,7 +223,7 @@
    <widget class="QListView" name="listViewTitleSequence">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>460</x>
       <y>150</y>
       <width>231</width>
       <height>111</height>
@@ -289,7 +289,7 @@
   <widget class="QPushButton" name="pushButtonStartConvert">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>10</x>
      <y>380</y>
      <width>100</width>
      <height>30</height>
@@ -302,7 +302,7 @@
   <widget class="QPushButton" name="pushButtonSaveConfig">
    <property name="geometry">
     <rect>
-     <x>260</x>
+     <x>250</x>
      <y>380</y>
      <width>100</width>
      <height>30</height>

@@ -3,6 +3,7 @@ import json
 from msilib import sequence
 import os
 from pathlib import Path, PurePosixPath
+import sys
 import webbrowser
 from PyQt5 import QtWidgets,QtCore
 from PyQt5.QtWidgets import QMessageBox,QApplication
@@ -10,6 +11,7 @@ from PyQt5.QtCore import QStringListModel
 from GrouponDeliveryNoteFunction import generate_deliverynote_file_name, main_program
 
 from Ui_GrouponDeliveryNoteMainDialog import Ui_Dialog
+from about_dialog_handle import AboutDialogHandle
 class MainDialogHandle(QtWidgets.QDialog):
 
     input_file_name="input.json"
@@ -72,27 +74,28 @@ class MainDialogHandle(QtWidgets.QDialog):
             # 派送单显示顺序
             if "show_sequence" in program_input:
                 self.show_sequence=program_input["show_sequence"]
-                self.ui.listViewSequence.setCurrentIndex(self.listViewSequenceItemmodel.index(self.show_sequence-1))
 
             # 派送单表题顺序
             if "title_sequence" in program_input:
                 self.title_sequence=program_input["title_sequence"]
-                self.ui.listViewTitleSequence.setCurrentIndex(self.listViewTitleSequenceItemmodel.index(self.title_sequence-1))
 
             # 是否隐藏手机号码
             if "if_hide_phone_number" in program_input:
                 self.if_hide_phone_number=program_input["if_hide_phone_number"]
-                self.ui.checkBoxIfHidePhoneNumber.setChecked(self.if_hide_phone_number)
 
             # 是否自动设置导出路径
             if "if_automated_set_output_path" in program_input:
                 self.if_automated_set_output_path=program_input["if_automated_set_output_path"]
-                self.ui.checkBoxIfAutomatedSetOutputPath.setChecked(self.if_automated_set_output_path)
             
             # 是否直接读取input.json文件运行
             if "if_direct_read_input_json" in program_input:
                 self.if_direct_read_input_json=program_input["if_direct_read_input_json"]
-                self.ui.checkBoxIfDirectReadInputJson.setChecked(self.if_direct_read_input_json)
+
+        self.ui.listViewSequence.setCurrentIndex(self.listViewSequenceItemmodel.index(self.show_sequence-1))
+        self.ui.listViewTitleSequence.setCurrentIndex(self.listViewTitleSequenceItemmodel.index(self.title_sequence-1))
+        self.ui.checkBoxIfHidePhoneNumber.setChecked(self.if_hide_phone_number)
+        self.ui.checkBoxIfAutomatedSetOutputPath.setChecked(self.if_automated_set_output_path)
+        self.ui.checkBoxIfDirectReadInputJson.setChecked(self.if_direct_read_input_json)
 
     #选择是否隐藏手机号码
     def set_if_hide_phone_number(self):        
@@ -187,8 +190,12 @@ class MainDialogHandle(QtWidgets.QDialog):
     #查看派送单
     def open_delivery_note_file(self):
         self.deliverynote_file_name=self.ui.lineEditDeliveryNote.text()
-        os.startfile(self.deliverynote_file_name)
-
+        if os.path.exists(self.deliverynote_file_name):
+            os.startfile(self.deliverynote_file_name)
+        else:
+            messagebox_text= f"未找到文件{self.deliverynote_file_name}，请检查确认"
+            QMessageBox.critical(self,"错误对话框",messagebox_text)
+            
     #开始转换
     def conver_to_delivery_note(self):
         self.groupon_owner=self.ui.lineEditGrouponOwner.text()
@@ -210,8 +217,11 @@ class MainDialogHandle(QtWidgets.QDialog):
         webbrowser.open(url)
     #关于
     def about(self):
-        QtWidgets.QMessageBox.about(self, "关于",
-                            "GrouponDeliveryNoteV1.0程序主要用于协助团长自动整理快团团订单，生成小区内派送单，便于团长或志愿者送货和小区居民收货。另外本程序考虑闵行嘉怡水岸小区的特点，进行了专门的优化。\n                                                                     作者:小涛\n                                                                     微信号mtshang1984")
+        about_dialog_handle= AboutDialogHandle()
+        about_dialog_handle.exec()
+        
+        # QtWidgets.QMessageBox.about(self, "关于",
+        #                     "GrouponDeliveryNote程序主要用于协助团长自动整理快团团订单，生成小区内派送单，便于团长或志愿者送货和小区居民收货。另外本程序考虑闵行嘉怡水岸小区的特点，进行了专门的优化。\n                                                                     作者:小涛\n                                                                     微信号mtshang1984")
 
     #退出
     def exit_program(self):
