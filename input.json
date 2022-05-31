@@ -1,8 +1,8 @@
 {
-    "groupon_owner": "浮生若梦",
+    "groupon_owner": "浮生",
     "order_file_name": "C:/Users/smt/Desktop/20220525浮生若梦水果套餐.xlsx",
-    "deliverynote_file_name": "C:/Users/smt/Desktop/20220525浮生若梦水果套餐派送单（含手机号）（按楼号-房号-商品排序）.docx",
-    "show_sequence": 3,
+    "deliverynote_file_name": "C:/Users/smt/Desktop/20220525浮生若梦水果套餐派送单（含手机号）（打印户标签）.docx",
+    "show_sequence": 5,
     "title_sequence": 1,
     "if_hide_phone_number": false,
     "if_automated_set_output_path": true,
