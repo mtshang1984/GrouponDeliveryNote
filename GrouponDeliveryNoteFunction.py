@@ -11,6 +11,7 @@ import docx
 from docx import Document  
 from docx.shared import Cm
 from docx.shared import Pt
+from docx.shared import Pt
 from docx.enum.section import WD_SECTION
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.enum.table import WD_ALIGN_VERTICAL
@@ -104,7 +105,37 @@ def set_cell_text_for_product_lable(row, index_row, text_list, alignment=WD_ALIG
         run._element.rPr.rFonts.set(qn('w:eastAsia'), u'微软雅黑')
         run.font.bold=True
 
+def add_text_for_product_lable(this_document,text_list,font_size_factor=1.0):
+    for i in range(len(text_list)):
+        if i==0:
+            para=this_document.add_paragraph()            
+            para.paragraph_format.space_before = Pt(0)
+            para.paragraph_format.space_after = Pt(0)
+            para.paragraph_format.line_spacing=1
+            para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            run = para.add_run(str(text_list[i]))
+            run.font.size= Pt(int(36*font_size_factor))
+        else:
+            para=this_document.add_paragraph()
+            para.paragraph_format.space_before = Pt(0)
+            para.paragraph_format.space_after = Pt(0)
+            para.paragraph_format.line_spacing=1
+            para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            run = para.add_run(str(text_list[i]))
+            run.font.size= Pt(int(11*font_size_factor))
+            
+        run.font.name = '微软雅黑'
+        run.font.name = u'微软雅黑'
+        run._element.rPr.rFonts.set(qn('w:eastAsia'), u'微软雅黑')
+        run.font.bold=True
 
+#设置页面的尺寸
+def set_page_size(this_document,width_cm,height_cm):
+
+    this_document.sections[0].page_height = Cm(float(height_cm))
+    this_document.sections[0].page_width = Cm(float(width_cm)  )
+
+#对于户单据，设置单据内容
 def set_cell_text_for_room_lable(groupon_owner,row, index_row, text_list,product_order_list,quantity_list,product_name_list):
     row[index_row].vertical_alignment = WD_ALIGN_VERTICAL.CENTER
     for i in range(len(text_list)):
@@ -144,7 +175,8 @@ def set_cell_text_for_room_lable(groupon_owner,row, index_row, text_list,product
         set_cell_text(
             row_cells, 1, quantity_list[i])
     add_all_border(table)
-    #表格边框
+
+#设置表格边框
 def add_border(table,position):
     borders = OxmlElement('w:tblBorders')
     border =  OxmlElement(f'w:{position}')
@@ -153,6 +185,7 @@ def add_border(table,position):
     borders.append(border)
     table._tbl.tblPr.append(borders)
 
+#y设置外边框
 def add_all_border(table):
     add_border(table,"top")
     add_border(table,"bottom")
@@ -318,6 +351,7 @@ def add_building_order_table(building_order_data, this_document, groupon_owner, 
         number_line_in_page = number_line_in_page + 2
     return number_line_in_page
 
+#合并
 def merge_building_number_and_room_number(building_number,room_number,if_upstream_park,if_minimized_text=False):
     building_number_and_room_number=""
     #增加楼号如果为666666，则为商务楼
@@ -490,7 +524,7 @@ def set_first_page(this_document,page_margin_cm,show_sequence):
         section.left_margin = Cm(page_margin_cm["left_margin"])
         section.right_margin = Cm(page_margin_cm["right_margin"])
 
-    if show_sequence!=4 and show_sequence!=5:
+    if show_sequence!=4 and show_sequence!=5 and show_sequence!=6:
         add_page_number(this_document.sections[0].footer.paragraphs[0].add_run())    
         this_document.sections[0].footer.paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
         this_document.sections[0].different_first_page_header_footer = False
@@ -551,7 +585,7 @@ def add_room_lable_table(this_document,number_row):
     return table
 
 # 输出派送单word文件以供打印
-def output_deliverynote_file(data, delivery_note_file_name, groupon_owner, product_name_list, excel_column_name, max_row_number_per_page, page_margin_cm,show_sequence=1,tile_sequence=1, if_hide_phone_number=True,if_upstream_park=False,if_use_pyqt=False,qtwidgets=None):
+def output_deliverynote_file(data, delivery_note_file_name, groupon_owner, product_name_list, excel_column_name, max_row_number_per_page, page_margin_cm,label_width="8", label_height="6", show_sequence=1,tile_sequence=1, if_hide_phone_number=True,if_upstream_park=False,if_use_pyqt=False,qtwidgets=None):
     # 设置字体和段前段后行距
     this_document = Document()
     
@@ -655,7 +689,7 @@ def output_deliverynote_file(data, delivery_note_file_name, groupon_owner, produ
             # 获取本套餐订单数据
             index_in_product=0
             product_order_data = data.loc[data[excel_column_name["product_name"]]== product_name_list[i][0]].sort_values(by = [excel_column_name["building_number"],excel_column_name["room_number"]])
-            product_quantity_sum=product_order_data[excel_column_name["quantity"]].sum() 
+            product_quantity_sum=int(product_order_data[excel_column_name["quantity"]].sum() )
             groupon_owner_string="-"+groupon_owner.encode('utf-8')[0:12].decode('utf-8', errors='ignore')
             building_number_list=sorted(product_order_data[excel_column_name["building_number"]].unique())
             
@@ -663,7 +697,7 @@ def output_deliverynote_file(data, delivery_note_file_name, groupon_owner, produ
                 # 获得当前楼栋的订单信息
                 product_building_order_data = product_order_data.loc[product_order_data[excel_column_name["building_number"]] == j].copy(
                 )                
-                product_building_quantity_sum=product_building_order_data[excel_column_name["quantity"]].sum()
+                product_building_quantity_sum=int(product_building_order_data[excel_column_name["quantity"]].sum())
                 
                 index_in_product_building=0
                 for index, row in product_building_order_data.iterrows():
@@ -679,7 +713,7 @@ def output_deliverynote_file(data, delivery_note_file_name, groupon_owner, produ
 
                         custom_name=row[excel_column_name["custom_name"]].encode('utf-8')[0:10].decode('utf-8', errors='ignore')
                         phone_number=row[excel_column_name["phone_number"]]
-                        product_name=product_name_list[list(product_name_list[:, 0]).index(row[excel_column_name["product_name"]])][1].encode('utf-8')[0:50].decode('utf-8', errors='ignore')
+                        product_name=product_name_list[list(product_name_list[:, 0]).index(row[excel_column_name["product_name"]])][1].encode('utf-8')[0:80].decode('utf-8', errors='ignore')
                         
                         building_number_and_room_number=merge_building_number_and_room_number(row[excel_column_name["building_number"]],row[excel_column_name["room_number"]],if_upstream_park,True)
                         
@@ -769,6 +803,52 @@ def output_deliverynote_file(data, delivery_note_file_name, groupon_owner, produ
                             max_label_in_next_page=max_label_in_normal_page                         
                         number_label_in_page=number_label_in_page+1
 
+    elif(show_sequence==6):
+        set_first_page(this_document,page_margin_cm,show_sequence)
+        set_page_size(this_document,label_width,label_height) 
+        font_size_factor =min(float(label_width)/8.0,float(label_height)/6.0)
+
+        if_first=True
+        for i in range(product_name_list.shape[0]):
+            # 获取本套餐订单数据
+            index_in_product=0
+            product_order_data = data.loc[data[excel_column_name["product_name"]]== product_name_list[i][0]].sort_values(by = [excel_column_name["building_number"],excel_column_name["room_number"]])
+            product_quantity_sum=int(product_order_data[excel_column_name["quantity"]].sum() )
+            groupon_owner_string="-"+groupon_owner.encode('utf-8')[0:12].decode('utf-8', errors='ignore')
+            building_number_list=sorted(product_order_data[excel_column_name["building_number"]].unique())
+            
+            for j in building_number_list:
+                # 获得当前楼栋的订单信息
+                product_building_order_data = product_order_data.loc[product_order_data[excel_column_name["building_number"]] == j].copy(
+                )                
+                product_building_quantity_sum=int(product_building_order_data[excel_column_name["quantity"]].sum())
+                
+                index_in_product_building=0
+                for index, row in product_building_order_data.iterrows():
+                    quantity=int(row[excel_column_name["quantity"]])
+                    for k in range(quantity):
+                        
+
+                        custom_name=row[excel_column_name["custom_name"]].encode('utf-8')[0:10].decode('utf-8', errors='ignore')
+                        phone_number=row[excel_column_name["phone_number"]]
+                        product_name=product_name_list[list(product_name_list[:, 0]).index(row[excel_column_name["product_name"]])][1].encode('utf-8')[0:80].decode('utf-8', errors='ignore')
+                        
+                        building_number_and_room_number=merge_building_number_and_room_number(row[excel_column_name["building_number"]],row[excel_column_name["room_number"]],if_upstream_park,True)
+                        
+                        if if_hide_phone_number:
+                            additional_string=""
+                        else:
+                            additional_string=str(phone_number)
+                        if if_first==False:                            
+                            this_document.add_page_break()
+                        else:
+                            if_first=False
+                        add_text_for_product_lable(this_document,[building_number_and_room_number,custom_name+additional_string,product_name,f'总{index_in_product+1}/{product_quantity_sum}(本楼{index_in_product_building+1}/{product_building_quantity_sum}){groupon_owner_string}'],font_size_factor)
+                        
+                        
+                        index_in_product_building=index_in_product_building+1
+
+
     else:
         messagebox_text= f"不支持show_sequence值为{show_sequence}的排序方式！"
         if if_use_pyqt:
@@ -846,6 +926,8 @@ def generate_deliverynote_file_name(order_file_name,if_hide_phone_number,show_se
             keyword=keyword+"（打印件标签）"
         elif(show_sequence==5):
             keyword=keyword+"（打印户标签）"
+        elif(show_sequence==6):
+            keyword=keyword+"（标签机打印户标签）"
 
         return str(PurePosixPath(order_file_name).parent)+"/"+Path(order_file_name).stem+"派送单"+keyword+".docx"
 
@@ -897,6 +979,19 @@ def main_program(input_file_name,if_use_pyqt=False,qtwidgets=None):
         title_sequence = program_input["title_sequence"]
     else:
         title_sequence = 1
+
+    
+    # 标签宽度
+    if "label_width" in program_input:
+        label_width=program_input["label_width"]
+    else:
+        label_width="8"
+
+    # 标签高度
+    if "label_height" in program_input:
+        label_height=program_input["label_height"]
+    else:
+        label_height="6"
 
     # 快团团订单表题
     if "excel_column_name" in program_input:
@@ -958,6 +1053,13 @@ def main_program(input_file_name,if_use_pyqt=False,qtwidgets=None):
                 "left_margin": 0.5,
                 "right_margin": 0.5
             }
+        elif show_sequence ==6:
+            page_margin_cm = {
+                "top_margin": 0.5,
+                "bottom_margin": 0.2,
+                "left_margin": 0.5,
+                "right_margin": 0.5
+            }
         else:
             page_margin_cm = {
                 "top_margin": 1,
@@ -979,7 +1081,7 @@ def main_program(input_file_name,if_use_pyqt=False,qtwidgets=None):
         deliverynote_file_name=generate_deliverynote_file_name(order_file_name,if_hide_phone_number,show_sequence)
 
     # 读入快团团订单数据
-    data = pd.read_excel(order_file_name, keep_default_na=False,engine='openpyxl')
+    data = pd.read_excel(order_file_name, keep_default_na=False)
 
     # 判断订单是否快团团社区团购
     if excel_column_name["quantity"] in data.columns:
@@ -1119,9 +1221,16 @@ def main_program(input_file_name,if_use_pyqt=False,qtwidgets=None):
     
 
     start_time2=time.time()
+    
+
+    # 标签高度
+    if "label_height" in program_input:
     # 输出派送单不带手机号
-    reply=output_deliverynote_file(data, deliverynote_file_name, groupon_owner, product_name_list, excel_column_name,
-                             max_row_number_per_page, page_margin_cm, show_sequence,title_sequence, if_hide_phone_number,if_upstream_park,if_use_pyqt,qtwidgets)
+        reply=output_deliverynote_file(data, deliverynote_file_name, groupon_owner, product_name_list, excel_column_name,
+            max_row_number_per_page, page_margin_cm,label_width,label_height,
+            show_sequence,title_sequence, if_hide_phone_number,if_upstream_park,if_use_pyqt, qtwidgets)
+
+
     if reply==True:
         print(f"共花费{(time.time()-start_time2):0.1f}s完成派送单的生成。")
     

@@ -5,7 +5,7 @@
 import sys
 
 from GrouponDeliveryNoteFunction import main_program
-from MainDialogHandle import MainDialogHandle
+from main_dialog_handle import MainDialogHandle
 
 from PyQt5.QtWidgets import QApplication #需要使用pyqt5类库
 

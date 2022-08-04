@@ -6,322 +6,308 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>718</width>
-    <height>456</height>
+    <width>763</width>
+    <height>468</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>GrouponDeliveryNote V1.2.1</string>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>350</y>
-     <width>80</width>
-     <height>30</height>
-    </rect>
+  <property name="windowTitle">
+   <string>GrouponDeliveryNote V1.2.2</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_3">
+   <property name="spacing">
+    <number>20</number>
    </property>
-   <property name="text">
-    <string>派送单</string>
+   <property name="sizeConstraint">
+    <enum>QLayout::SetMinAndMaxSize</enum>
    </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEditDeliveryNote">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>350</y>
-     <width>461</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="readOnly">
-    <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButtonOpenDeliveryNote">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>410</y>
-     <width>100</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>查看派送单</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButtonAbout">
-   <property name="geometry">
-    <rect>
-     <x>490</x>
-     <y>410</y>
-     <width>100</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>关于与赞助</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButtonCheckUpdate">
-   <property name="geometry">
-    <rect>
-     <x>370</x>
-     <y>410</y>
-     <width>100</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>更新程序</string>
-   </property>
-  </widget>
-  <widget class="QGroupBox" name="groupBox">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>701</width>
-     <height>311</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>输入</string>
-   </property>
-   <widget class="QCheckBox" name="checkBoxIfHidePhoneNumber">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>100</y>
-      <width>141</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>输出时隐藏手机号</string>
-    </property>
-    <property name="checked">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBoxIfDirectReadInputJson">
-    <property name="geometry">
-     <rect>
-      <x>210</x>
-      <y>100</y>
-      <width>171</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>直接读取input.json</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButtonSelectFile">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>60</y>
-      <width>100</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>选择文件路径</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEditGrouponOwner">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>20</y>
-      <width>461</width>
-      <height>30</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>20</y>
-      <width>80</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>团长昵称</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>60</y>
-      <width>80</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>快团团订单</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEditOrderFile">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>60</y>
-      <width>461</width>
-      <height>30</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QListView" name="listViewSequence">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>150</y>
-      <width>231</width>
-      <height>141</height>
-     </rect>
-    </property>
-    <property name="editTriggers">
-     <set>QAbstractItemView::NoEditTriggers</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>140</y>
-      <width>80</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>排序方式</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_5">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>140</y>
-      <width>80</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>表题顺序</string>
-    </property>
-   </widget>
-   <widget class="QListView" name="listViewTitleSequence">
-    <property name="geometry">
-     <rect>
-      <x>460</x>
-      <y>150</y>
-      <width>231</width>
-      <height>141</height>
-     </rect>
-    </property>
-    <property name="editTriggers">
-     <set>QAbstractItemView::NoEditTriggers</set>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBoxIfAutomatedSetOutputPath">
-    <property name="geometry">
-     <rect>
-      <x>400</x>
-      <y>100</y>
-      <width>171</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>自动设置输出路径</string>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QGroupBox" name="groupBox_2">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>330</y>
-     <width>701</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>输出</string>
-   </property>
-   <widget class="QPushButton" name="pushButtonSaveFile">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>20</y>
-      <width>100</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>选择保存路径</string>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QPushButton" name="pushButtonQuit">
-   <property name="geometry">
-    <rect>
-     <x>610</x>
-     <y>410</y>
-     <width>100</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>退出</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButtonStartConvert">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>410</y>
-     <width>100</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>开始转换</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButtonSaveConfig">
-   <property name="geometry">
-    <rect>
-     <x>250</x>
-     <y>410</y>
-     <width>100</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>保存配置</string>
-   </property>
-  </widget>
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string>输入</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="spacing">
+       <number>12</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="lineEditOrderFile"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>快团团订单</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>团长昵称</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QPushButton" name="pushButtonSelectFile">
+          <property name="text">
+           <string>选择文件路径</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="lineEditGrouponOwner"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QCheckBox" name="checkBoxIfHidePhoneNumber">
+          <property name="text">
+           <string>输出时隐藏手机号</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBoxIfDirectReadInputJson">
+          <property name="text">
+           <string>直接读取input.json</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBoxIfAutomatedSetOutputPath">
+          <property name="text">
+           <string>自动设置输出路径</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout" columnstretch="0,6,0,2,0,2">
+        <item row="3" column="2">
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>标签宽（cm)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>排序方式</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="3">
+         <widget class="QLineEdit" name="lineEditLabelWidth"/>
+        </item>
+        <item row="3" column="5">
+         <widget class="QLineEdit" name="lineEditLabelHeight">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" rowspan="4">
+         <widget class="QListView" name="listViewSequence">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="4">
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string>标签高(cm)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3" rowspan="2" colspan="3">
+         <widget class="QListView" name="listViewTitleSequence">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_5">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>表题顺序</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>0</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="0" rowspan="3">
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string>输出</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>派送单</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lineEditDeliveryNote">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButtonSaveFile">
+          <property name="text">
+           <string>选择保存路径</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QPushButton" name="pushButtonStartConvert">
+       <property name="text">
+        <string>开始转换</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonOpenDeliveryNote">
+       <property name="text">
+        <string>查看派送单</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonSaveConfig">
+       <property name="text">
+        <string>保存配置</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonCheckUpdate">
+       <property name="text">
+        <string>更新程序</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonAbout">
+       <property name="text">
+        <string>关于与赞助</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonQuit">
+       <property name="text">
+        <string>退出</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
   <zorder>groupBox_2</zorder>
   <zorder>groupBox</zorder>
-  <zorder>label_3</zorder>
-  <zorder>lineEditDeliveryNote</zorder>
-  <zorder>pushButtonOpenDeliveryNote</zorder>
-  <zorder>pushButtonAbout</zorder>
-  <zorder>pushButtonCheckUpdate</zorder>
-  <zorder>pushButtonQuit</zorder>
-  <zorder>pushButtonStartConvert</zorder>
-  <zorder>pushButtonSaveConfig</zorder>
+  <zorder>horizontalLayoutWidget_3</zorder>
  </widget>
  <resources/>
  <connections/>

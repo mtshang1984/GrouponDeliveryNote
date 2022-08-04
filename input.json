@@ -1,9 +1,11 @@
 {
     "groupon_owner": "浮生",
-    "order_file_name": "C:/Users/smt/Desktop/20220525浮生若梦水果套餐.xlsx",
-    "deliverynote_file_name": "C:/Users/smt/Desktop/20220525浮生若梦水果套餐派送单（含手机号）（打印户标签）.docx",
-    "show_sequence": 5,
+    "order_file_name": "C:/Users/smt/Desktop/20220525浮生若梦水果套餐（信息均为虚构）.xlsx",
+    "deliverynote_file_name": "C:/Users/smt/Desktop/20220525浮生若梦水果套餐（信息均为虚构）派送单（含手机号）（标签机打印户标签）.docx",
+    "show_sequence": 6,
     "title_sequence": 1,
+    "label_width": "8",
+    "label_height": "6",
     "if_hide_phone_number": false,
     "if_automated_set_output_path": true,
     "if_direct_read_input_json": false
